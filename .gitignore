@@ -3,3 +3,21 @@
 ################################################################################
 
 /SpeedyGoPP/x64/Debug/SpeedyGoPP.tlog
+*.obj
+*.recipe
+/SpeedyGoPP/x64/Debug/SpeedyGoPP.log
+*.idb
+*.pdb
+/x64/Debug/SpeedyGoPP.ilk
+/x64/Debug/SpeedyGoPP.exe
+/SpeedyGoPP/SpeedyGoPP.vcxproj.user
+/SpeedyGoPP/SpeedyGoPP.vcxproj.filters
+/SpeedyGoPP/SpeedyGoPP.vcxproj
+/.vs/SpeedyGoPP/v16/Browse.VC.opendb
+/.vs/SpeedyGoPP/v16/Browse.VC.db-wal
+/.vs/SpeedyGoPP/v16/Browse.VC.db-shm
+/.vs/SpeedyGoPP/v16/Browse.VC.db
+/.vs/SpeedyGoPP/v16/.suo
+/.vs/SpeedyGoPP/v16/ipch/AutoPCH/e5528c6b6f608bdb
+/.vs/SpeedyGoPP/v16/ipch/AutoPCH/d9140c9ad8f19baa
+/.vs/SpeedyGoPP/v16/ipch/AutoPCH/851c7de9972665fc

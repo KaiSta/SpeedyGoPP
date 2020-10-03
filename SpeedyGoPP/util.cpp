@@ -20,7 +20,7 @@ void VectorClock::add(int tid, int val)
 	{
 		vals.resize(tid + 1);
 	}
-	set(tid, get(tid)+val)
+	set(tid, get(tid) + val);
 }
 
 void VectorClock::set(int tid, int val) 
