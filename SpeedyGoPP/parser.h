@@ -9,7 +9,7 @@ class parser
 {
 public:
 	parser(std::string path);
-	Item getNext();
+	bool getNext(Item& item);
 
 private:
 	std::ifstream infile;

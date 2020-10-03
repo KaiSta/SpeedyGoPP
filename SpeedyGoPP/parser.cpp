@@ -4,14 +4,15 @@ parser::parser(std::string path)
 {
 }
 
-Item parser::getNext()
+bool parser::getNext(Item& item)
 {
 	std::string line;
-	Item newItem;
 
 	if (std::getline(infile, line))
 	{
 		
-	}
-	return newItem;
+		return true;
+	} 
+
+	return false;
 }
