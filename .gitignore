@@ -10,9 +10,6 @@
 *.pdb
 /x64/Debug/SpeedyGoPP.ilk
 /x64/Debug/SpeedyGoPP.exe
-/SpeedyGoPP/SpeedyGoPP.vcxproj.user
-/SpeedyGoPP/SpeedyGoPP.vcxproj.filters
-/SpeedyGoPP/SpeedyGoPP.vcxproj
 /.vs/SpeedyGoPP/v16/Browse.VC.opendb
 /.vs/SpeedyGoPP/v16/Browse.VC.db-wal
 /.vs/SpeedyGoPP/v16/Browse.VC.db-shm

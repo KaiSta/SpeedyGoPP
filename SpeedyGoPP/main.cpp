@@ -3,6 +3,8 @@
 #include <fstream>
 #include <string>
 
+#include "parser.h"
+
 int main() {
 	std::vector<int> val1{ 1,2,3,4,5 };
 	auto val2 = val1;
@@ -25,13 +27,18 @@ int main() {
 	std::cout << std::endl;
 
 	std::cout << "---------------\n";
+	
+	parser p{ "D:\\traces\\array.log" };
 
-	std::ifstream infile("D:\\traces\\array.log");
-	std::string line;
-
-	while (std::getline(infile, line))
+	Item it;
+	while (p.getNext(it))
 	{
-		std::cout << line << std::endl;
+		std::cout << "{" << std::endl;
+		std::cout << "\tTID:" << it.threadID << std::endl;
+		std::cout << "\tTYPE:" << it.op << std::endl;
+		std::cout << "\tOBJ:" << it.objID << std::endl;
+		std::cout << "\tSRCREF:" << it.sourceRef << std::endl;
+		std::cout << "}" << std::endl;
 	}
 
 	return 0;

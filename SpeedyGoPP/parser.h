@@ -13,5 +13,8 @@ public:
 
 private:
 	std::ifstream infile;
+	int count;
+
+	const std::string delimiter = ",";
 };
 
