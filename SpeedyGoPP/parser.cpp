@@ -16,7 +16,6 @@ bool parser::getNext(Item& item)
 			tokens.push_back(line.substr(0, pos));		
 			line.erase(0, pos + delimiter.length());
 		}
-		
 
 		item.threadID = std::stoi(tokens[0]);
 		item.objID = std::stoi(tokens[2]);
