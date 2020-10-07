@@ -9,6 +9,8 @@ class parser
 {
 public:
 	parser(std::string path);
+	parser(const parser&) = delete;
+	~parser();
 	bool getNext(Item& item);
 
 private:

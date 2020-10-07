@@ -20,7 +20,7 @@ private:
 	int max(int, int) const;
 };
 
-enum OpType
+enum class OpType
 {
 	Write,
 	Read,

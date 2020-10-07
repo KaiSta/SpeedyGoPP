@@ -4,6 +4,11 @@ parser::parser(std::string path) : infile(path), count(0)
 {
 }
 
+parser::~parser()
+{
+	infile.close();
+}
+
 bool parser::getNext(Item& item)
 {
 	std::string line;
@@ -12,7 +17,8 @@ bool parser::getNext(Item& item)
 	{
 		size_t pos = 0;
 		std::vector<std::string> tokens;
-		while ((pos = line.find(delimiter)) != std::string::npos) {
+		while ((pos = line.find(delimiter)) != std::string::npos) 
+		{
 			tokens.push_back(line.substr(0, pos));		
 			line.erase(0, pos + delimiter.length());
 		}
@@ -24,35 +30,35 @@ bool parser::getNext(Item& item)
 		
 		if (tokens[1] == "WR") 
 		{
-			item.op = Write;
+			item.op = OpType::Write;
 		}
 		else if (tokens[1] == "RD") 
 		{
-			item.op = Read;
+			item.op = OpType::Read;
 		}
 		else if (tokens[1] == "LK")
 		{
-			item.op = Lock;
+			item.op = OpType::Lock;
 		}
 		else if (tokens[1] == "UK")
 		{
-			item.op = Unlock;
+			item.op = OpType::Unlock;
 		}
 		else if (tokens[1] == "SIG")
 		{
-			item.op = Signal;
+			item.op = OpType::Signal;
 		}
 		else if (tokens[1] == "WT")
 		{
-			item.op = Wait;
+			item.op = OpType::Wait;
 		}
 		else if (tokens[1] == "AWR")
 		{
-			item.op = Atomic_Write;
+			item.op = OpType::Atomic_Write;
 		}
 		else if (tokens[1] == "ARD")
 		{
-			item.op = Atomic_Read;
+			item.op = OpType::Atomic_Read;
 		}
 		return true;
 	} 
