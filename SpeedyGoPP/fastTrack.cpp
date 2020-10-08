@@ -37,9 +37,19 @@ void fastTrack::put(const Item& itm)
 	}
 }
 
+void fastTrack::checkThreadInit(thread_t tid, VectorClock& vc)
+{
+	if (vc.get(tid) == 0) //thread uninitialized
+	{
+		vc.set(tid, 1);
+	}
+}
+
 void fastTrack::read(const Item& itm)
 {
 	auto thread = threads[itm.threadID];
+	checkThreadInit(itm.threadID, thread);
+
 	auto var = vars[itm.objID];
 
 	if (!var.second.less(thread)) //compare with write history
@@ -57,6 +67,7 @@ void fastTrack::read(const Item& itm)
 void fastTrack::write(const Item& itm)
 {
 	auto thread = threads[itm.threadID];
+	checkThreadInit(itm.threadID, thread);
 	auto var = vars[itm.objID];
 
 	if (!var.first.less(thread)) // compare with read history
@@ -78,6 +89,7 @@ void fastTrack::write(const Item& itm)
 void fastTrack::lock(const Item& itm)
 {
 	auto thread = threads[itm.threadID];
+	checkThreadInit(itm.threadID, thread);
 	auto lock = locks[itm.objID];
 
 	thread.sync(lock);
@@ -89,6 +101,7 @@ void fastTrack::lock(const Item& itm)
 void fastTrack::unlock(const Item& itm)
 {
 	auto thread = threads[itm.threadID];
+	checkThreadInit(itm.threadID, thread);
 	auto lock = locks[itm.objID];
 
 	lock.sync(thread);
@@ -101,6 +114,7 @@ void fastTrack::unlock(const Item& itm)
 void fastTrack::sig(const Item& itm)
 {
 	auto thread = threads[itm.threadID];
+	checkThreadInit(itm.threadID, thread);
 	auto signal = signals[itm.objID];
 
 	signal = thread;
@@ -113,6 +127,7 @@ void fastTrack::sig(const Item& itm)
 void fastTrack::wait(const Item& itm)
 {
 	auto thread = threads[itm.threadID];
+	checkThreadInit(itm.threadID, thread);
 	auto signal = signals[itm.objID];
 
 	thread.sync(signal);
@@ -124,6 +139,7 @@ void fastTrack::wait(const Item& itm)
 void fastTrack::atomicOp(const Item& itm)
 {
 	auto thread = threads[itm.threadID];
+	checkThreadInit(itm.threadID, thread);
 	auto vol = volatiles[itm.objID];
 
 	thread.sync(vol);

@@ -62,7 +62,7 @@ int main(int argc, char* argv[]) {
 	{
 		for (auto& listener : algorithm)
 		{
-			listener.put(it);
+			listener(it);
 		}
 		it = {}; //reset item
 	}

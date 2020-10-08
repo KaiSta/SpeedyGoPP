@@ -1,12 +1,16 @@
 #pragma once
 #include <string>
 #include <map>
+#include <memory>
+#include <functional>
 
 #include "util.h"
 
 class EventListener {
 public:
-	void put(const Item&);
+	virtual void put(const Item&)
+	{}
+	virtual ~EventListener() {}
 };
 
 class Register {
@@ -19,10 +23,10 @@ public:
 
 	static Register& getReg();
 
-	void add(std::string, std::vector<EventListener>);
-	std::vector<EventListener> get(std::string);
+	void add(std::string, std::vector<std::function<void(const Item&)> >);
+	const std::vector<std::function<void(const Item&)> >& get(std::string);
 
 private:
 	Register();
-	std::map<std::string, std::vector<EventListener> > algorithms;
+	std::map<std::string, std::vector<std::function<void(const Item&)> > > algorithms;
 };

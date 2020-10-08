@@ -2,11 +2,12 @@
 
 #include <vector>
 #include <unordered_map>
+#include <memory>
 
 #include "util.h"
 #include "register.h"
 
-class fastTrack
+class fastTrack : public EventListener
 {
 public:
 	fastTrack();
@@ -15,6 +16,7 @@ public:
 
 	void put(const Item&);
 private:
+	void checkThreadInit(thread_t, VectorClock&);
 
 	void read(const Item&);
 	void write(const Item&);
@@ -31,3 +33,19 @@ private:
 	std::unordered_map<obj_t, VectorClock> volatiles;
 };
 
+namespace FastTrack
+{
+	class initializer {
+	public:
+		initializer()
+		{
+			auto& r = Register::getReg();
+			std::vector<std::function<void(const Item&)> > funcs{std::bind(&fastTrack::put, &ft, std::placeholders::_1)};
+			r.add("fastTrack", funcs);
+		}
+	private:
+		fastTrack ft;
+	};
+
+	static const initializer ftInit;
+}

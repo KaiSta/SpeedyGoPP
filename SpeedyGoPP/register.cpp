@@ -14,16 +14,12 @@ Register& Register::getReg()
 	return lreg;
 }
 
-void Register::add(std::string name, std::vector<EventListener> listeners)
+void Register::add(std::string name, std::vector<std::function<void(const Item&)> > listeners)
 {
 	algorithms[name] = listeners;
 }
 
-std::vector<EventListener> Register::get(std::string name)
+const std::vector<std::function<void(const Item&)> >& Register::get(std::string name)
 {
 	return algorithms[name];
-}
-
-void EventListener::put(const Item&)
-{
 }
