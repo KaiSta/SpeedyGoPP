@@ -140,12 +140,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="fastTrack.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="parser.cpp" />
     <ClCompile Include="register.cpp" />
     <ClCompile Include="util.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="fastTrack.h" />
     <ClInclude Include="parser.h" />
     <ClInclude Include="register.h" />
     <ClInclude Include="util.h" />
