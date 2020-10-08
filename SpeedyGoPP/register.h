@@ -11,13 +11,18 @@ public:
 
 class Register {
 public:
-	Register();
-	~Register();
+	
 	Register(const Register&) = delete;
+	void operator=(Register const&) = delete;
+	~Register();
+	
+
+	static Register& getReg();
 
 	void add(std::string, std::vector<EventListener>);
 	std::vector<EventListener> get(std::string);
 
 private:
+	Register();
 	std::map<std::string, std::vector<EventListener> > algorithms;
 };

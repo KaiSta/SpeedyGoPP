@@ -4,6 +4,8 @@
 #include <string>
 
 #include "parser.h"
+#include "register.h"
+#include "util.h"
 
 enum class argType {
 	NONE,
@@ -46,50 +48,23 @@ int main(int argc, char* argv[]) {
 
 	parser p{ tracePath };
 
+	auto& reg = Register::getReg();
+	auto algorithm = reg.get(modus);
+
+	if (algorithm.empty())
+	{
+		std::cout << "Unknown algorithm" << std::endl;
+		return 1;
+	}
+
 	Item it;
 	while (p.getNext(it))
 	{
-		std::cout << "{" << std::endl;
-		std::cout << "\tTID:" << it.threadID << std::endl;
-		switch (it.op)
+		for (auto& listener : algorithm)
 		{
-		case OpType::Write:
-			std::cout << "\tTYPE:" << "write" << std::endl;
-			break;
-		case OpType::Read:
-			std::cout << "\tTYPE:" << "read" << std::endl;
-			break;
-		case OpType::Lock:
-			std::cout << "\tTYPE:" << "lock" << std::endl;
-			break;
-		case OpType::Unlock:
-			std::cout << "\tTYPE:" << "unlock" << std::endl;
-			break;
-		case OpType::Signal:
-			std::cout << "\tTYPE:" << "signal" << std::endl;
-			break;
-		case OpType::Wait:
-			std::cout << "\tTYPE:" << "wait" << std::endl;
-			break;
-		case OpType::Atomic_Read:
-			std::cout << "\tTYPE:" << "ARead" << std::endl;
-			break;
-		case OpType::Atomic_Write:
-			std::cout << "\tTYPE:" << "AWrite" << std::endl;
-			break;
-		case OpType::Fork:
-			std::cout << "\tTYPE:" << "Fork" << std::endl;
-			break;
-		case OpType::Join:
-			std::cout << "\tTYPE:" << "Join" << std::endl;
-			break;
-		default:
-			std::cout << "\tTYPE:" << "unknown" << std::endl;
+			listener.put(it);
 		}
-		
-		std::cout << "\tOBJ:" << it.objID << std::endl;
-		std::cout << "\tSRCREF:" << it.sourceRef << std::endl;
-		std::cout << "}" << std::endl;
+		it = {}; //reset item
 	}
 
 	return 0;
