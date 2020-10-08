@@ -43,6 +43,10 @@ namespace FastTrack
 			std::vector<std::function<void(const Item&)> > funcs{std::bind(&fastTrack::put, &ft, std::placeholders::_1)};
 			r.add("fastTrack", funcs);
 		}
+		initializer(const initializer&) = delete;
+		initializer(initializer&&) = delete;
+		void operator=(const initializer&) = delete;
+		void operator=(initializer&&) = delete;
 	private:
 		fastTrack ft;
 	};

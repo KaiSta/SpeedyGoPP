@@ -33,16 +33,14 @@ enum class OpType : size_t
 	Atomic_Read,
 	Signal,
 	Wait,
-	Fork,
-	Join
 };
 
 struct Item
 {
-	OpType op;
-	std::string sourceRef;
-	thread_t threadID;
-	thread_t partnerID;
-	obj_t objID;
-	size_t idx;
+	OpType op{};
+	std::string sourceRef{};
+	thread_t threadID{};
+	thread_t partnerID{};
+	obj_t objID{};
+	size_t idx{};
 };
