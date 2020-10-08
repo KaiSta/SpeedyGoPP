@@ -71,6 +71,18 @@ int main(int argc, char* argv[]) {
 		case OpType::Wait:
 			std::cout << "\tTYPE:" << "wait" << std::endl;
 			break;
+		case OpType::Atomic_Read:
+			std::cout << "\tTYPE:" << "ARead" << std::endl;
+			break;
+		case OpType::Atomic_Write:
+			std::cout << "\tTYPE:" << "AWrite" << std::endl;
+			break;
+		case OpType::Fork:
+			std::cout << "\tTYPE:" << "Fork" << std::endl;
+			break;
+		case OpType::Join:
+			std::cout << "\tTYPE:" << "Join" << std::endl;
+			break;
 		default:
 			std::cout << "\tTYPE:" << "unknown" << std::endl;
 		}

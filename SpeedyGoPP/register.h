@@ -16,7 +16,7 @@ public:
 	Register(const Register&) = delete;
 
 	void add(std::string, std::vector<EventListener>);
-	std::vector<EventListener> get(std::string) const;
+	std::vector<EventListener> get(std::string);
 
 private:
 	std::map<std::string, std::vector<EventListener> > algorithms;

@@ -14,7 +14,7 @@ VectorClock::~VectorClock()
 
 }
 
-void VectorClock::add(int tid, int val) 
+void VectorClock::add(thread_t tid, int val) 
 {
 	if (tid >= vals.size())
 	{
@@ -23,7 +23,7 @@ void VectorClock::add(int tid, int val)
 	set(tid, get(tid) + val);
 }
 
-void VectorClock::set(int tid, int val) 
+void VectorClock::set(thread_t tid, int val) 
 {
 	if (tid >= vals.size()) 
 	{
@@ -34,7 +34,7 @@ void VectorClock::set(int tid, int val)
 
 void VectorClock::sync(const VectorClock& vc) 
 {
-	for (int i = 0; i < vc.vals.size(); ++i)
+	for (std::vector<int>::size_type i = 0; i < vc.vals.size(); ++i)
 	{
 		set(i, max(get(i), vc.get(i)));
 	}
@@ -49,7 +49,7 @@ bool VectorClock::less(const VectorClock& vc) const
 
 	bool oneRealSmaller = false;
 
-	for (int i = 0; i < vals.size(); ++i)
+	for (std::vector<int>::size_type i = 0; i < vals.size(); ++i)
 	{
 		if (get(i) > vc.get(i)) {
 			return false;
@@ -62,7 +62,7 @@ bool VectorClock::less(const VectorClock& vc) const
 
 	if (vc.vals.size() > vals.size())
 	{
-		for (int i = 0; i < vc.vals.size(); ++i)
+		for (std::vector<int>::size_type i = 0; i < vc.vals.size(); ++i)
 		{
 			if (get(i) > vc.get(i))
 			{
@@ -78,7 +78,7 @@ bool VectorClock::less(const VectorClock& vc) const
 	return oneRealSmaller;
 }
 
-int VectorClock::get(int tid) const
+int VectorClock::get(thread_t tid) const
 {
 	if (tid > vals.size())
 	{
