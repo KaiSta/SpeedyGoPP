@@ -7,7 +7,7 @@
 #include "util.h"
 #include "register.h"
 
-class fastTrack : public EventListener
+class fastTrack
 {
 public:
 	fastTrack();
@@ -31,6 +31,8 @@ private:
 	std::unordered_map<obj_t, std::pair<VectorClock, VectorClock> > vars;//1 read 2 write
 	std::unordered_map<obj_t, VectorClock> signals;
 	std::unordered_map<obj_t, VectorClock> volatiles;
+
+	std::function<void(std::string, std::string)> get_report();
 };
 
 namespace FastTrack

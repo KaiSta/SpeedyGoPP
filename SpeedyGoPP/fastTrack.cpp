@@ -3,8 +3,7 @@
 #include <iostream>
 
 fastTrack::fastTrack()
-{
-}
+{}
 
 void fastTrack::put(const Item& itm)
 {
@@ -54,7 +53,7 @@ void fastTrack::read(const Item& itm)
 
 	if (!var.second.less(thread)) //compare with write history
 	{
-		std::cout << "wr race!\n";
+		get_report()(itm.sourceRef, "N/A");
 	}
 
 	var.first.sync(thread);
@@ -72,11 +71,11 @@ void fastTrack::write(const Item& itm)
 
 	if (!var.first.less(thread)) // compare with read history
 	{
-		std::cout << "rw race!\n";
+		get_report()(itm.sourceRef, "N/A");
 	}
 	if (!var.second.less(thread)) // compare with write history
 	{
-		std::cout << "ww race!\n";
+		get_report()(itm.sourceRef, "N/A");
 	}
 
 	var.second.sync(thread);
@@ -149,4 +148,10 @@ void fastTrack::atomicOp(const Item& itm)
 
 	threads[itm.threadID] = thread;
 	volatiles[itm.objID] = vol;
+}
+
+std::function<void(std::string, std::string)> fastTrack::get_report()
+{
+	auto& r = Register::getReg();
+	return r.getReporter();
 }

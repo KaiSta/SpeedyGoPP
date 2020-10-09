@@ -95,3 +95,38 @@ int VectorClock::max(int a, int b) const
 	}
 	return b;
 }
+
+Reporter::Reporter(std::ostream& out, level detail) : output(out), details(detail), all_races(0), unique_races(0)
+{
+}
+
+void Reporter::race(std::string a, std::string b)
+{
+	++all_races;
+	if (details == Reporter::level::ALL)
+	{
+		output << "Race: " << a << "," << b << std::endl;
+		output << unique_races << "/" << all_races << std::endl;
+	}
+
+	if (!is_unique(a, b))
+		return;
+
+	++unique_races;
+
+	if (details == Reporter::level::UNIQUE)
+	{
+		output << "Race: " << a << "," << b << std::endl;
+		output << unique_races << "/" << all_races << std::endl;
+	}
+}
+
+bool Reporter::is_unique(std::string a, std::string b)
+{
+	auto innerMap = uniqueFilter.find(a);
+	if (innerMap == uniqueFilter.end())
+		return true;
+	if (innerMap->second.find(b) == innerMap->second.end())
+		return true;
+	return false;
+}

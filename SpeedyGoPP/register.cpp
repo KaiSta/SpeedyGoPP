@@ -14,6 +14,16 @@ Register& Register::getReg()
 	return lreg;
 }
 
+void Register::setReporter(reportFunc f)
+{
+	report = f;
+}
+
+Register::reportFunc Register::getReporter()
+{
+	return report;
+}
+
 void Register::add(std::string name, std::vector<std::function<void(const Item&)> > listeners)
 {
 	algorithms[name] = listeners;

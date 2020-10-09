@@ -2,6 +2,8 @@
 
 #include <vector>
 #include <string>
+#include <unordered_map>
+#include <ostream>
 
 typedef std::vector<int>::size_type thread_t;
 typedef std::vector<int>::size_type obj_t;
@@ -43,4 +45,25 @@ struct Item
 	thread_t partnerID{};
 	obj_t objID{};
 	size_t idx{};
+};
+
+class Reporter
+{
+public:
+	enum class level : size_t
+	{
+		ALL,
+		UNIQUE
+	};
+
+	Reporter(std::ostream&, level);
+	void race(std::string, std::string);
+private:
+	level details;
+	std::unordered_map<std::string, std::unordered_map<std::string, bool> > uniqueFilter;
+	std::ostream& output;
+	size_t all_races;
+	size_t unique_races;
+
+	bool is_unique(std::string, std::string);
 };

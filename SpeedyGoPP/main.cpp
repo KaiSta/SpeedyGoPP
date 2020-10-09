@@ -49,6 +49,8 @@ int main(int argc, char* argv[]) {
 	parser p{ tracePath };
 
 	auto& reg = Register::getReg();
+	Reporter r {std::cout, Reporter::level::UNIQUE};
+	reg.setReporter(std::bind(&Reporter::race, &r, std::placeholders::_1, std::placeholders::_2));
 	auto algorithm = reg.get(modus);
 
 	if (algorithm.empty())

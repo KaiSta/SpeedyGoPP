@@ -6,15 +6,9 @@
 
 #include "util.h"
 
-class EventListener {
-public:
-	virtual void put(const Item&)
-	{}
-	virtual ~EventListener() {}
-};
-
 class Register {
 public:
+	typedef std::function<void(std::string, std::string)> reportFunc;
 	
 	Register(const Register&) = delete;
 	void operator=(Register const&) = delete;
@@ -23,10 +17,15 @@ public:
 
 	static Register& getReg();
 
+	void setReporter(reportFunc);
+	reportFunc getReporter();
+
+
 	void add(std::string, std::vector<std::function<void(const Item&)> >);
 	const std::vector<std::function<void(const Item&)> >& get(std::string);
 
 private:
 	Register();
 	std::map<std::string, std::vector<std::function<void(const Item&)> > > algorithms;
+	reportFunc report;
 };
