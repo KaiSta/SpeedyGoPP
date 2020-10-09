@@ -58,10 +58,14 @@ public:
 
 	Reporter(std::ostream&, level);
 	void race(std::string, std::string);
+
+	Reporter(const Reporter&) = delete;
+	Reporter(Reporter&&) = delete;
+	void operator=(const Reporter&) = delete;
 private:
+	std::ostream& output;
 	level details;
 	std::unordered_map<std::string, std::unordered_map<std::string, bool> > uniqueFilter;
-	std::ostream& output;
 	size_t all_races;
 	size_t unique_races;
 
