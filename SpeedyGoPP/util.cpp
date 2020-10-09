@@ -114,6 +114,10 @@ void Reporter::race(std::string a, std::string b)
 
 	++unique_races;
 
+	auto innerMap = uniqueFilter[a];
+	innerMap[b] = true;
+	uniqueFilter[a] = innerMap;
+
 	if (details == Reporter::level::UNIQUE)
 	{
 		output << "Race: " << a << "," << b << std::endl;
