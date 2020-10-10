@@ -134,3 +134,26 @@ bool Reporter::is_unique(std::string a, std::string b)
 		return true;
 	return false;
 }
+
+SrcRefManager::SrcRefManager() : counter(0)
+{
+}
+
+int SrcRefManager::add(std::string s)
+{
+	auto res = s_to_i.find(s);
+	if (res != s_to_i.end())
+	{
+		return res->second; // key already exists, return int val
+	}
+	//key does not exist
+	++counter;
+	s_to_i[s] = counter;
+	i_to_s[counter] = s;
+	return counter;
+}
+
+std::string SrcRefManager::get(int i)
+{
+	return i_to_s[i];
+}

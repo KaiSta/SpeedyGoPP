@@ -26,6 +26,8 @@ bool parser::getNext(Item& item)
 		item.threadID = thread_t(std::stoi(tokens[0]));
 		item.objID = obj_t(std::stoi(tokens[2]));
 		item.idx = count;
+
+		//auto res = sourceRefs.insert({ tokens[3], true });
 		item.sourceRef = tokens[3];
 		
 		if (tokens[1] == "WR") 

@@ -40,7 +40,7 @@ enum class OpType : size_t
 struct Item
 {
 	OpType op{};
-	std::string sourceRef{};
+	std::string sourceRef;
 	thread_t threadID{};
 	thread_t partnerID{};
 	obj_t objID{};
@@ -70,4 +70,21 @@ private:
 	size_t unique_races;
 
 	bool is_unique(std::string, std::string);
+};
+
+class SrcRefManager
+{
+public:
+	SrcRefManager();
+	SrcRefManager(const SrcRefManager&) = delete;
+	void operator=(const SrcRefManager&) = delete;
+
+	int add(std::string);
+	std::string get(int);
+
+private:
+	std::unordered_map<std::string, int> s_to_i;
+	std::unordered_map<int, std::string> i_to_s;
+
+	int counter;
 };

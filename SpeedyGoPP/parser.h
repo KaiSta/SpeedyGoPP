@@ -2,6 +2,7 @@
 
 #include <fstream>
 #include <string>
+#include <unordered_map>
 
 #include "util.h"
 
@@ -18,6 +19,8 @@ private:
 	std::ifstream infile;
 	const std::string delimiter = ",";
 	size_t count;
+
+	std::unordered_map<std::string, bool> sourceRefs;
 };
 
 /*
