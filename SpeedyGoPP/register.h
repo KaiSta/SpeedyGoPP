@@ -8,7 +8,7 @@
 
 class Register {
 public:
-	typedef std::function<void(std::string, std::string)> reportFunc;
+	typedef std::function<void(const std::string&, const std::string&)> reportFunc;
 	
 	Register(const Register&) = delete;
 	void operator=(Register const&) = delete;
@@ -21,11 +21,13 @@ public:
 	reportFunc getReporter();
 
 
-	void add(std::string, std::vector<std::function<void(const Item&)> >);
+	void add(std::string, std::vector<std::function<void(const Item&)> >, std::function<void(reportFunc)>);
 	const std::vector<std::function<void(const Item&)> >& get(std::string);
 
 private:
 	Register();
 	std::map<std::string, std::vector<std::function<void(const Item&)> > > algorithms;
 	reportFunc report;
+
+	std::vector< std::function<void(reportFunc)> > cbReports;
 };

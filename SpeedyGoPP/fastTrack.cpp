@@ -5,6 +5,11 @@
 fastTrack::fastTrack()
 {}
 
+void fastTrack::setOutput(std::function<void(const std::string&, const std::string&)> fu)
+{
+	report = fu;
+}
+
 void fastTrack::put(const Item& itm)
 {
 	switch (itm.op)
@@ -53,7 +58,7 @@ void fastTrack::read(const Item& itm)
 
 	if (!var.second.less(thread)) //compare with write history
 	{
-		get_report()(itm.sourceRef, "N/A");
+		report(itm.sourceRef, "N/A");
 	}
 
 	var.first.sync(thread);
@@ -71,11 +76,11 @@ void fastTrack::write(const Item& itm)
 
 	if (!var.first.less(thread)) // compare with read history
 	{
-		get_report()(itm.sourceRef, "N/A");
+		report(itm.sourceRef, "N/A");
 	}
 	if (!var.second.less(thread)) // compare with write history
 	{
-		get_report()(itm.sourceRef, "N/A");
+		report(itm.sourceRef, "N/A");
 	}
 
 	var.second.sync(thread);

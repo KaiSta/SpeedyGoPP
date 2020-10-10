@@ -14,6 +14,8 @@ public:
 	fastTrack(const fastTrack&) = delete;
 	void operator=(const fastTrack&) = delete;
 
+	void setOutput(std::function<void(const std::string&, const std::string&)>);
+
 	void put(const Item&);
 private:
 	void checkThreadInit(thread_t, VectorClock&);
@@ -33,6 +35,7 @@ private:
 	std::unordered_map<obj_t, VectorClock> volatiles;
 
 	std::function<void(std::string, std::string)> get_report();
+	std::function<void(const std::string&, const std::string&)> report;
 };
 
 namespace FastTrack
@@ -43,7 +46,7 @@ namespace FastTrack
 		{
 			auto& r = Register::getReg();
 			std::vector<std::function<void(const Item&)> > funcs{std::bind(&fastTrack::put, &ft, std::placeholders::_1)};
-			r.add("fastTrack", funcs);
+			r.add("fastTrack", funcs, std::bind(&fastTrack::setOutput, &ft, std::placeholders::_1));
 		}
 		initializer(const initializer&) = delete;
 		initializer(initializer&&) = delete;

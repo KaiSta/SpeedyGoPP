@@ -20,3 +20,6 @@ private:
 	size_t count;
 };
 
+/*
+put each sourceref in a map, give each item just the ref to the sourceref
+*/

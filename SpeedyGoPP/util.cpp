@@ -100,7 +100,7 @@ Reporter::Reporter(std::ostream& out, level detail) : output(out), details(detai
 {
 }
 
-void Reporter::race(std::string a, std::string b)
+void Reporter::race(const std::string& a, const std::string& b)
 {
 	++all_races;
 	if (details == Reporter::level::ALL)

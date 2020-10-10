@@ -57,7 +57,7 @@ public:
 	};
 
 	Reporter(std::ostream&, level);
-	void race(std::string, std::string);
+	void race(const std::string&, const std::string&);
 
 	Reporter(const Reporter&) = delete;
 	Reporter(Reporter&&) = delete;
