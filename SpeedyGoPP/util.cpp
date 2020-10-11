@@ -148,7 +148,7 @@ int SrcRefManager::add(std::string s)
 	{
 		return res->second; // key already exists, return int val
 	}
-	//key does not exist
+	//key does not exist, first idx starts with 1
 	++counter;
 	s_to_i[s] = counter;
 	i_to_s[counter] = s;
