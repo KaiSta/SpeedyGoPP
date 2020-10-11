@@ -96,12 +96,14 @@ int VectorClock::max(int a, int b) const
 	return b;
 }
 
-Reporter::Reporter(std::ostream& out, level detail) : output(out), details(detail), all_races(0), unique_races(0)
+Reporter::Reporter(std::ostream& out, level detail, SrcRefManager& manager) : output(out), details(detail), all_races(0), unique_races(0), srcManager(manager)
 {
 }
 
-void Reporter::race(const std::string& a, const std::string& b)
+void Reporter::race(int ai, int bi)
 {
+	auto a = srcManager.get(ai);
+	auto b = srcManager.get(bi);
 	++all_races;
 	if (details == Reporter::level::ALL)
 	{
@@ -155,5 +157,8 @@ int SrcRefManager::add(std::string s)
 
 std::string SrcRefManager::get(int i)
 {
+	if (i == 0)
+		return "N/A";
+
 	return i_to_s[i];
 }

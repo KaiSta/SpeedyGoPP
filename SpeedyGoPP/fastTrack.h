@@ -14,7 +14,7 @@ public:
 	fastTrack(const fastTrack&) = delete;
 	void operator=(const fastTrack&) = delete;
 
-	void setOutput(std::function<void(const std::string&, const std::string&)>);
+	void setOutput(std::function<void(int,int)>);
 
 	void put(const Item&);
 private:
@@ -34,8 +34,8 @@ private:
 	std::unordered_map<obj_t, VectorClock> signals;
 	std::unordered_map<obj_t, VectorClock> volatiles;
 
-	std::function<void(std::string, std::string)> get_report();
-	std::function<void(const std::string&, const std::string&)> report;
+	std::function<void(int,int)> get_report();
+	std::function<void(int,int)> report;
 };
 
 namespace FastTrack

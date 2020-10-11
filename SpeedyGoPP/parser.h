@@ -9,7 +9,7 @@
 class parser
 {
 public:
-	parser(std::string path);
+	parser(std::string path, SrcRefManager&);
 	parser(const parser&) = delete;
 	~parser();
 	parser& operator=(const parser&) = delete;
@@ -20,7 +20,7 @@ private:
 	const std::string delimiter = ",";
 	size_t count;
 
-	std::unordered_map<std::string, bool> sourceRefs;
+	SrcRefManager& srcManager;
 };
 
 /*

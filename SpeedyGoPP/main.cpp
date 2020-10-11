@@ -46,10 +46,12 @@ int main(int argc, char* argv[]) {
 	std::cout << "Mode=" << modus << std::endl;
 	std::cout << "Trace=" << tracePath << std::endl;
 
-	parser p{ tracePath };
+	SrcRefManager srcManager;
+
+	parser p{ tracePath, srcManager };
 
 	auto& reg = Register::getReg();
-	Reporter r {std::cout, Reporter::level::UNIQUE};
+	Reporter r {std::cout, Reporter::level::UNIQUE, srcManager};
 	reg.setReporter(std::bind(&Reporter::race, &r, std::placeholders::_1, std::placeholders::_2));
 	auto algorithm = reg.get(modus);
 

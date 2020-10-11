@@ -1,6 +1,6 @@
 #include "parser.h"
 
-parser::parser(std::string path) : infile(path), count(0)
+parser::parser(std::string path, SrcRefManager& manager) : infile(path), count(0), srcManager(manager)
 {
 }
 
@@ -28,7 +28,7 @@ bool parser::getNext(Item& item)
 		item.idx = count;
 
 		//auto res = sourceRefs.insert({ tokens[3], true });
-		item.sourceRef = tokens[3];
+		item.sourceRef = srcManager.add(tokens[3]);
 		
 		if (tokens[1] == "WR") 
 		{

@@ -8,7 +8,7 @@
 
 class Register {
 public:
-	typedef std::function<void(const std::string&, const std::string&)> reportFunc;
+	typedef std::function<void(int,int)> reportFunc;
 	
 	Register(const Register&) = delete;
 	void operator=(Register const&) = delete;

@@ -40,36 +40,11 @@ enum class OpType : size_t
 struct Item
 {
 	OpType op{};
-	std::string sourceRef;
+	int sourceRef;
 	thread_t threadID{};
 	thread_t partnerID{};
 	obj_t objID{};
 	size_t idx{};
-};
-
-class Reporter
-{
-public:
-	enum class level : size_t
-	{
-		ALL,
-		UNIQUE
-	};
-
-	Reporter(std::ostream&, level);
-	void race(const std::string&, const std::string&);
-
-	Reporter(const Reporter&) = delete;
-	Reporter(Reporter&&) = delete;
-	void operator=(const Reporter&) = delete;
-private:
-	std::ostream& output;
-	level details;
-	std::unordered_map<std::string, std::unordered_map<std::string, bool> > uniqueFilter;
-	size_t all_races;
-	size_t unique_races;
-
-	bool is_unique(std::string, std::string);
 };
 
 class SrcRefManager
@@ -88,3 +63,31 @@ private:
 
 	int counter;
 };
+
+class Reporter
+{
+public:
+	enum class level : size_t
+	{
+		ALL,
+		UNIQUE
+	};
+
+	Reporter(std::ostream&, level, SrcRefManager&);
+	void race(int, int);
+
+	Reporter(const Reporter&) = delete;
+	Reporter(Reporter&&) = delete;
+	void operator=(const Reporter&) = delete;
+private:
+	std::ostream& output;
+	level details;
+	std::unordered_map<std::string, std::unordered_map<std::string, bool> > uniqueFilter;
+	size_t all_races;
+	size_t unique_races;
+
+	bool is_unique(std::string, std::string);
+
+	SrcRefManager& srcManager;
+};
+

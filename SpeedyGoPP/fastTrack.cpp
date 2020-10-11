@@ -5,7 +5,7 @@
 fastTrack::fastTrack()
 {}
 
-void fastTrack::setOutput(std::function<void(const std::string&, const std::string&)> fu)
+void fastTrack::setOutput(std::function<void(int,int)> fu)
 {
 	report = fu;
 }
@@ -58,7 +58,7 @@ void fastTrack::read(const Item& itm)
 
 	if (!var.second.less(thread)) //compare with write history
 	{
-		report(itm.sourceRef, "N/A");
+		report(itm.sourceRef, 0);
 	}
 
 	var.first.sync(thread);
@@ -76,11 +76,11 @@ void fastTrack::write(const Item& itm)
 
 	if (!var.first.less(thread)) // compare with read history
 	{
-		report(itm.sourceRef, "N/A");
+		report(itm.sourceRef, 0);
 	}
 	if (!var.second.less(thread)) // compare with write history
 	{
-		report(itm.sourceRef, "N/A");
+		report(itm.sourceRef, 0);
 	}
 
 	var.second.sync(thread);
@@ -155,7 +155,7 @@ void fastTrack::atomicOp(const Item& itm)
 	volatiles[itm.objID] = vol;
 }
 
-std::function<void(std::string, std::string)> fastTrack::get_report()
+std::function<void(int,int)> fastTrack::get_report()
 {
 	auto& r = Register::getReg();
 	return r.getReporter();
