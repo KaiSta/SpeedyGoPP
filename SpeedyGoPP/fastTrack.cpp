@@ -58,7 +58,7 @@ void fastTrack::read(const Item& itm)
 
 	if (!var.second.less(thread)) //compare with write history
 	{
-		report(itm.sourceRef, 0);
+		report(itm.sourceRef, SrcRefManager::NotAvailable);
 	}
 
 	var.first.sync(thread);
@@ -76,11 +76,11 @@ void fastTrack::write(const Item& itm)
 
 	if (!var.first.less(thread)) // compare with read history
 	{
-		report(itm.sourceRef, 0);
+		report(itm.sourceRef, SrcRefManager::NotAvailable);
 	}
 	if (!var.second.less(thread)) // compare with write history
 	{
-		report(itm.sourceRef, 0);
+		report(itm.sourceRef, SrcRefManager::NotAvailable);
 	}
 
 	var.second.sync(thread);

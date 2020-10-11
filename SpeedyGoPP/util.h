@@ -50,6 +50,8 @@ struct Item
 class SrcRefManager
 {
 public:
+	static const int NotAvailable = 0;
+
 	SrcRefManager();
 	SrcRefManager(const SrcRefManager&) = delete;
 	void operator=(const SrcRefManager&) = delete;

@@ -157,7 +157,7 @@ int SrcRefManager::add(std::string s)
 
 std::string SrcRefManager::get(int i)
 {
-	if (i == 0)
+	if (i == NotAvailable)
 		return "N/A";
 
 	return i_to_s[i];
