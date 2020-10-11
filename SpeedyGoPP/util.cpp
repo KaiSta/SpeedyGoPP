@@ -36,7 +36,7 @@ void VectorClock::sync(const VectorClock& vc)
 {
 	for (std::vector<int>::size_type i = 0; i < vc.vals.size(); ++i)
 	{
-		set(i, max(get(i), vc.get(i)));
+		set(i, std::max(get(i), vc.get(i)));
 	}
 }
 
@@ -85,15 +85,6 @@ int VectorClock::get(thread_t tid) const
 		return 0;
 	}
 	return vals[tid];
-}
-
-int VectorClock::max(int a, int b) const
-{
-	if (a > b)
-	{
-		return a;
-	}
-	return b;
 }
 
 Reporter::Reporter(std::ostream& out, level detail, SrcRefManager& manager) : output(out), details(detail), all_races(0), unique_races(0), srcManager(manager)

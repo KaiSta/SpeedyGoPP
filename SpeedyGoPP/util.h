@@ -4,6 +4,7 @@
 #include <string>
 #include <unordered_map>
 #include <ostream>
+#include <algorithm>
 
 typedef std::vector<int>::size_type thread_t;
 typedef std::vector<int>::size_type obj_t;
@@ -21,8 +22,6 @@ public:
 	int get(thread_t tid) const;
 private:
 	std::vector<int> vals;
-
-	int max(int, int) const;
 };
 
 enum class OpType : size_t
