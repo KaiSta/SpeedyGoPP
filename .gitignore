@@ -20,3 +20,4 @@
 /.vs/SpeedyGoPP/v16/ipch/AutoPCH/851c7de9972665fc
 *.ipch
 /SpeedyGoPP/x64/Debug
+*.o
