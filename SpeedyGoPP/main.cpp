@@ -13,8 +13,8 @@ enum class argType {
 	TRACE
 };
 
-int main(int argc, char* argv[]) {
-
+int main(int argc, char* argv[]) 
+{
 	std::string modus;
 	std::string tracePath;
 

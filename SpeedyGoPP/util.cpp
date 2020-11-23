@@ -1,5 +1,7 @@
 #include "util.h"
 
+#include <algorithm>
+
 VectorClock::VectorClock() 
 {
 	vals.resize(4);
@@ -34,10 +36,14 @@ void VectorClock::set(thread_t tid, int val)
 
 void VectorClock::sync(const VectorClock& vc) 
 {
-	for (std::vector<int>::size_type i = 0; i < vc.vals.size(); ++i)
+	if(vc.vals.size() > vals.size())
 	{
-		set(i, std::max(get(i), vc.get(i)));
+		vals.resize(vc.vals.size());
 	}
+	std::transform(vc.vals.begin(), vc.vals.end(), vals.begin(), vals.begin(),
+	 [](int i, int j) -> int {
+		 return i > j ? i : j;
+	 } );
 }
 
 bool VectorClock::less(const VectorClock& vc) const
@@ -85,6 +91,16 @@ int VectorClock::get(thread_t tid) const
 		return 0;
 	}
 	return vals[tid];
+}
+
+std::ostream& operator <<(std::ostream& stream, const VectorClock& vc) {
+	stream << "[";
+	for(auto& c : vc.vals)
+	{
+		stream << c << ",";
+	}
+	stream << "]";
+	return stream;
 }
 
 Reporter::Reporter(std::ostream& out, level detail, SrcRefManager& manager) : output(out), details(detail), all_races(0), unique_races(0), srcManager(manager)

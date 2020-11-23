@@ -20,6 +20,8 @@ public:
 	void sync(const VectorClock& vcc);
 	bool less(const VectorClock& vc) const;
 	int get(thread_t tid) const;
+
+	friend std::ostream& operator<< (std::ostream& stream, const VectorClock& vc);
 private:
 	std::vector<int> vals;
 };
