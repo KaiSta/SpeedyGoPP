@@ -61,7 +61,7 @@ PROGRAM = speedyGo
 CXXSOURCES = main.cpp parser.cpp register.cpp util.cpp fastTrack.cpp       # list of source files
 CXXOBJECTS = $(CXXSOURCES:.cpp=.o)  # expands to list of object files
 CXXFLAGS = -std=c++17
-CXX = g++
+CXX = clang++
 
 LDFLAGS = $(LIBDIRS) $(LIBS)
 
