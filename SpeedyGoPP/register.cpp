@@ -14,26 +14,18 @@ Register& Register::getReg()
 	return lreg;
 }
 
-void Register::setReporter(reportFunc f)
+void Register::setReporter(RaceDetector::reportFunc f)
 {
-	for (auto& e : cbReports)
-	{
-		e(f);
-	}
+	report = f;
 }
 
-Register::reportFunc Register::getReporter()
+RaceDetector::reportFunc Register::getReporter()
 {
 	return report;
 }
 
-void Register::add(std::string name, std::vector<std::function<void(const Item&)> > listeners, std::function<void(reportFunc)> cbReporter)
+RaceDetector* Register::get(std::string name)
 {
-	algorithms[name] = listeners;
-	cbReports.push_back(cbReporter);
-}
-
-const std::vector<std::function<void(const Item&)> >& Register::get(std::string name)
-{
-	return algorithms[name];
+	algorithms[name]->setReporter(report);
+	return algorithms[name].get();
 }

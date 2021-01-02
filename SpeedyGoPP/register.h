@@ -5,11 +5,10 @@
 #include <functional>
 
 #include "util.h"
+#include "racedetector.h"
 
 class Register {
-public:
-	typedef std::function<void(int,int)> reportFunc;
-	
+public:	
 	Register(const Register&) = delete;
 	void operator=(Register const&) = delete;
 	~Register();
@@ -17,17 +16,17 @@ public:
 
 	static Register& getReg();
 
-	void setReporter(reportFunc);
-	reportFunc getReporter();
+	void setReporter(RaceDetector::reportFunc);
+	RaceDetector::reportFunc getReporter();
 
-
-	void add(std::string, std::vector<std::function<void(const Item&)> >, std::function<void(reportFunc)>);
-	const std::vector<std::function<void(const Item&)> >& get(std::string);
+	template <typename T>
+	void add(std::string name) {
+		algorithms[name] = std::make_unique<T>();
+	}
+	RaceDetector* get(std::string);
 
 private:
 	Register();
-	std::map<std::string, std::vector<std::function<void(const Item&)> > > algorithms;
-	reportFunc report;
-
-	std::vector< std::function<void(reportFunc)> > cbReports;
+	std::map<std::string, std::unique_ptr<RaceDetector> > algorithms;
+	RaceDetector::reportFunc report;
 };
