@@ -8,5 +8,5 @@
 - [ ] W3PO with dependency checker
 - [ ] TSan v1
 - [ ] TSan with WRD
-- [ ] SHB
+- [x] SHB
 - [ ] SHBEE
