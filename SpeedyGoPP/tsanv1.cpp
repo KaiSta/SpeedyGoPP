@@ -3,37 +3,41 @@
 ThreadSanitizer::~ThreadSanitizer()
 {}
 
-void ThreadSanitizer::read(const Item&)
+void ThreadSanitizer::read(const Item& itm)
 {
 
 }
 
-void ThreadSanitizer::write(const Item&)
+void ThreadSanitizer::write(const Item& itm)
 {
 
 }
 
-void ThreadSanitizer::lock(const Item&)
+void ThreadSanitizer::lock(const Item& itm)
+{
+    auto thread = threads[itm.threadID];
+    thread.second.add(itm.objID);
+    threads[itm.threadID] = thread;
+}
+
+void ThreadSanitizer::unlock(const Item& itm)
+{
+    auto thread = threads[itm.threadID];
+    thread.second.remove(itm.objID);
+    threads[itm.threadID] = thread;
+}
+
+void ThreadSanitizer::signal(const Item& itm)
 {
 
 }
 
-void ThreadSanitizer::unlock(const Item&)
+void ThreadSanitizer::wait(const Item& itm)
 {
 
 }
 
-void ThreadSanitizer::signal(const Item&)
-{
-
-}
-
-void ThreadSanitizer::wait(const Item&)
-{
-
-}
-
-void ThreadSanitizer::atomicOp(const Item&)
+void ThreadSanitizer::atomicOp(const Item& itm)
 {
 
 }
