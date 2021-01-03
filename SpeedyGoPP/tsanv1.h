@@ -19,9 +19,16 @@ public:
 	virtual void atomicOp(const Item&) override;
 
 protected:
-	typedef std::pair<VectorClock, Lockset> access;
+	struct access {
+		VectorClock vc;
+		Lockset ls;
+		Item itm;
+	};
+						//read				//write
+	typedef std::pair<std::vector<access>, std::vector<access> > accessHistory;
+	
     std::unordered_map<thread_t, std::pair<VectorClock, Lockset> > threads;
     std::unordered_map<obj_t, VectorClock> signals;
 	std::unordered_map<obj_t, VectorClock> volatiles;
-	std::unordered_map<obj_t, std::pair<access,access> > vars;
+	std::unordered_map<obj_t, accessHistory> vars; // first=read,second=write
 };
