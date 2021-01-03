@@ -6,7 +6,7 @@
 - [ ] WCP
 - [ ] W3PO
 - [ ] W3PO with dependency checker
-- [ ] TSan v1
+- [x] TSan v1
 - [ ] TSan with WRD
 - [x] SHB
 - [ ] SHBEE
