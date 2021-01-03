@@ -7,6 +7,12 @@ VectorClock::VectorClock()
 	vals.resize(4);
 }
 
+VectorClock::VectorClock(thread_t tid)
+{
+	vals.resize(4);
+	set(tid, 1);
+}
+
 VectorClock::VectorClock(const VectorClock& vc) : vals{ vc.vals } 
 {
 }
@@ -168,4 +174,49 @@ std::string SrcRefManager::get(int i)
 		return "N/A";
 
 	return i_to_s[i];
+}
+
+
+Lockset::Lockset(const Lockset& ls) 
+{
+	locks = ls.locks;
+}
+
+Lockset& Lockset::operator=(Lockset ls)
+{
+	std::swap(locks, ls.locks);
+	return *this;
+}
+
+void Lockset::add(obj_t lock)
+{
+	locks[lock] = true;
+}
+
+void Lockset::remove(obj_t lock)
+{
+	auto it = locks.find(lock);
+	if (it != locks.end())
+	{
+		locks.erase(it);
+	}
+}
+
+Lockset Lockset::intersect(const Lockset& lockset)
+{
+	Lockset ls;
+	std::copy_if(std::begin(locks), std::end(locks), std::inserter(ls.locks, std::end(ls.locks)),
+	[&](std::pair<obj_t,bool> p) {
+		auto it = lockset.locks.find(p.first);
+		return it != std::end(lockset.locks);
+	});	
+	return ls;
+}
+
+bool Lockset::containsCommon(const Lockset& lockset)
+{
+	return std::any_of(std::begin(locks), std::end(locks), [&](std::pair<obj_t, bool> p) {
+		auto it = lockset.locks.find(p.first);
+		return it != lockset.locks.end();
+	});
 }

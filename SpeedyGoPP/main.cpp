@@ -9,6 +9,7 @@
 
 #include "fastTrack.h"
 #include "SHB.h"
+#include "tsanv1.h"
 
 enum class argType {
 	NONE,
@@ -20,6 +21,7 @@ void registerAlgorithms(Register& reg)
 {
 	reg.add<FastTrack>("fastTrack");
 	reg.add<SHB>("SHB");
+	reg.add<ThreadSanitizer>("TSan");
 }
 
 int main(int argc, char* argv[]) 

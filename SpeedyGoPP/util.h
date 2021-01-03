@@ -13,6 +13,7 @@ class VectorClock
 {
 public:
 	VectorClock();
+	VectorClock(thread_t tid);
 	VectorClock(const VectorClock& vc);
 	~VectorClock();
 	void set(thread_t tid, int val);
@@ -94,3 +95,16 @@ private:
 	SrcRefManager& srcManager;
 };
 
+class Lockset {
+public:
+	Lockset()=default;
+	Lockset(const Lockset&);
+	Lockset& operator=(Lockset ls);
+
+	void add(obj_t lock);
+	void remove(obj_t lock);
+	Lockset intersect(const Lockset& lockset);
+	bool containsCommon(const Lockset& lockset);
+private:
+	std::unordered_map<obj_t, bool> locks;
+};
