@@ -58,7 +58,7 @@ PROGRAM = speedyGo
 # directory information to be passed to the linker.
 #
 
-CXXSOURCES = main.cpp parser.cpp register.cpp util.cpp fastTrack.cpp SHB.cpp tsanv1.cpp # list of source files
+CXXSOURCES = main.cpp parser.cpp register.cpp util.cpp fastTrack.cpp SHB.cpp tsanv1.cpp w3po.cpp# list of source files
 CXXOBJECTS = $(CXXSOURCES:.cpp=.o)  # expands to list of object files
 CXXFLAGS = -std=c++17
 CXX = clang++
